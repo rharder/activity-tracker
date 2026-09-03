@@ -1,0 +1,2428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Activities">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<title>Daily Activity Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0f0f;
+  --surface: #1a1a1a;
+  --surface-2: #222222;
+  --surface-3: #2a2a2a;
+  --border: #333333;
+  --border-light: #3a3a3a;
+  --text: #e8e4df;
+  --text-dim: #8a8580;
+  --text-muted: #5a5652;
+  --accent: #e8834a;
+  --accent-dim: rgba(232,131,74,0.15);
+  --accent-glow: rgba(232,131,74,0.25);
+  --green: #5cb87a;
+  --green-dim: rgba(92,184,122,0.12);
+  --red: #d45d5d;
+  --red-dim: rgba(212,93,93,0.12);
+  --blue: #5b8fd9;
+  --blue-dim: rgba(91,143,217,0.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-theme="light"] {
+  --bg: #f4f1ec;
+  --surface: #ffffff;
+  --surface-2: #f0ece6;
+  --surface-3: #e8e3dc;
+  --border: #ddd7cf;
+  --border-light: #ccc5bc;
+  --text: #1a1612;
+  --text-dim: #6b6259;
+  --text-muted: #a89e94;
+  --accent: #c45d3e;
+  --accent-dim: rgba(196,93,62,0.1);
+  --accent-glow: rgba(196,93,62,0.18);
+  --green: #3a8a54;
+  --green-dim: rgba(58,138,84,0.1);
+  --red: #c04040;
+  --red-dim: rgba(192,64,64,0.08);
+  --blue: #3a6fb5;
+  --blue-dim: rgba(58,111,181,0.1);
+  --shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+[data-theme="light"] .nav-tab.active {
+  background: var(--accent);
+}
+
+[data-theme="light"] .panel {
+  background: var(--surface);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── App Shell ── */
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 16px 100px;
+}
+
+.app-header {
+  padding: 20px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.app-header-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 1.1rem;
+}
+
+.icon-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--border-light); }
+.icon-btn.active { background: var(--accent-dim); color: var(--accent); border-color: rgba(232,131,74,0.3); }
+
+/* ── Nav Tabs ── */
+.nav-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.nav-tab {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: center;
+}
+
+.nav-tab:hover { color: var(--text); }
+.nav-tab.active { background: var(--accent); color: #fff; }
+
+/* ── Section Divider ── */
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0 20px;
+}
+
+.date-arrow {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 0.9rem;
+}
+
+.date-arrow:hover { background: var(--surface-2); color: var(--text); }
+
+.date-display {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  min-width: 180px;
+  text-align: center;
+  cursor: pointer;
+  padding: 6px 16px;
+  border-radius: var(--radius-xs);
+  transition: background var(--transition);
+  position: relative;
+}
+
+.date-display:hover { background: var(--surface); }
+
+.date-display .today-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.date-display input[type="date"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ── Habit Card ── */
+.habit-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.habit-card:hover { border-color: var(--border-light); }
+
+.habit-card.dragging {
+  opacity: 0.4;
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.habit-card.drag-over-above {
+  border-top: 2px solid var(--accent);
+  margin-top: -1px;
+}
+
+.habit-card.drag-over-below {
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: -1px;
+}
+
+.drag-handle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 32px;
+  cursor: grab;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  touch-action: none;
+  transition: color var(--transition);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.drag-handle:hover { color: var(--text-dim); }
+.drag-handle:active { cursor: grabbing; }
+
+.drag-handle-dots {
+  display: grid;
+  grid-template-columns: 4px 4px;
+  gap: 3px;
+}
+
+.drag-handle-dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.habit-color {
+  width: 4px;
+  height: 36px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.habit-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.habit-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.habit-streak {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.habit-counter {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.counter-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  user-select: none;
+  -webkit-user-select: none;
+  font-family: inherit;
+  line-height: 1;
+}
+
+.counter-btn.dec:hover { background: var(--red-dim); color: var(--red); border-color: rgba(212,93,93,0.3); }
+.counter-btn.inc:hover { background: var(--green-dim); color: var(--green); border-color: rgba(92,184,122,0.3); }
+.counter-btn.inc:active { transform: scale(0.92); }
+.counter-btn.dec:active { transform: scale(0.92); }
+
+.counter-value {
+  min-width: 44px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  padding: 0 2px;
+}
+
+.counter-value.zero { color: var(--text-muted); }
+
+/* ── Empty State ── */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+}
+
+.empty-state-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.empty-state-text {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* ── Templates ── */
+.templates-section {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.templates-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+
+.templates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.template-card {
+  display: block;
+  width: 100%;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.template-card:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.template-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+}
+
+.template-count {
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.template-preview {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* ── Add Habit ── */
+.add-habit-row {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 0;
+}
+
+.add-habit-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.add-habit-input:focus { border-color: var(--accent); }
+.add-habit-input::placeholder { color: var(--text-muted); }
+
+.add-habit-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.add-habit-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+/* ── Settings Panel ── */
+.panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.panel-overlay.open { opacity: 1; pointer-events: auto; }
+
+.panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: min(380px, 90vw);
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  z-index: 101;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.panel.open { transform: translateX(0); }
+
+.panel-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.panel-close {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all var(--transition);
+}
+
+.panel-close:hover { background: var(--surface-2); color: var(--text); }
+
+.panel-body {
+  padding: 20px;
+  flex: 1;
+}
+
+.setting-group {
+  margin-bottom: 24px;
+}
+
+.setting-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.setting-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.setting-select:focus { border-color: var(--accent); }
+
+/* Manage habits list */
+.manage-habit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  margin-bottom: 6px;
+}
+
+.manage-habit .mh-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.manage-habit .mh-name {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.manage-habit .mh-delete {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  font-size: 0.95rem;
+}
+
+.manage-habit .mh-delete:hover { background: var(--red-dim); color: var(--red); }
+
+.manage-habit .mh-edit {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.manage-habit .mh-edit:hover { background: var(--accent-dim); color: var(--accent); }
+
+.manage-habit .mh-name-input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1.5px solid var(--accent);
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  outline: none;
+}
+
+.manage-habit .mh-arrows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.manage-habit .mh-arrow {
+  width: 24px;
+  height: 18px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  font-size: 0.7rem;
+  padding: 0;
+  line-height: 1;
+}
+
+.manage-habit .mh-arrow:hover { background: var(--accent-dim); color: var(--accent); }
+.manage-habit .mh-arrow:disabled { opacity: 0.2; cursor: default; }
+.manage-habit .mh-arrow:disabled:hover { background: transparent; color: var(--text-muted); }
+
+.danger-zone {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.danger-btn {
+  padding: 10px 16px;
+  border: 1px solid rgba(212,93,93,0.3);
+  border-radius: var(--radius-xs);
+  background: var(--red-dim);
+  color: var(--red);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  width: 100%;
+}
+
+.danger-btn:hover { background: rgba(212,93,93,0.2); }
+
+/* ── Summary Tab ── */
+/* ── Summary Range Toggle ── */
+.summary-range-toggle {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.range-btn {
+  flex: 1;
+  padding: 8px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: center;
+}
+
+.range-btn:hover { color: var(--text); border-color: var(--border-light); }
+.range-btn.active { background: var(--accent-dim); color: var(--accent); border-color: rgba(232,131,74,0.35); }
+
+.summary-week-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.summary-week-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  min-width: 200px;
+  text-align: center;
+}
+
+.summary-table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin-bottom: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.summary-table table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.summary-table thead {
+  background: var(--surface-2);
+}
+
+.summary-table th,
+.summary-table td {
+  padding: 10px 6px;
+  font-size: 0.78rem;
+  text-align: center;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  font-weight: 400;
+}
+
+.summary-table tbody tr:last-child td { border-bottom: none; }
+
+.summary-table .habit-col {
+  text-align: left;
+  padding-left: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: auto;
+  min-width: 60px;
+}
+
+.summary-table .day-col {
+  width: 42px;
+}
+
+.summary-table.weeks-2 .day-col { width: 30px; font-size: 0.72rem; }
+.summary-table.weeks-4 .day-col { width: 18px; font-size: 0.65rem; padding: 8px 1px; }
+.summary-table.weeks-4 .habit-col { font-size: 0.75rem; padding-left: 8px; min-width: 70px; width: 70px; }
+.summary-table.weeks-2 .habit-col { padding-left: 10px; }
+
+.summary-table.weeks-month .day-col { width: 16px; font-size: 0.6rem; padding: 8px 1px; }
+.summary-table.weeks-month .habit-col { font-size: 0.75rem; padding-left: 8px; min-width: 60px; width: 60px; }
+.summary-table.weeks-month tbody .day-col { font-size: 0.7rem; }
+.summary-table.weeks-month tbody .habit-col { font-size: 0.75rem; }
+
+.summary-table.weeks-all .day-col { width: 48px; font-size: 0.7rem; padding: 10px 4px; }
+.summary-table.weeks-all .habit-col { padding-left: 10px; min-width: 80px; width: 80px; }
+.summary-table.weeks-all tbody .day-col { font-size: 0.88rem; }
+.summary-table.weeks-all tbody .habit-col { font-size: 0.82rem; }
+
+.summary-table .week-end {
+  border-right: 2px solid var(--border);
+}
+
+.summary-table thead .week-end {
+  border-right-color: var(--border-light);
+}
+
+.summary-table .total-col {
+  width: 52px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.summary-table tbody .habit-col {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.82rem;
+}
+
+.summary-table tbody .day-col {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.summary-table tbody .day-col.zero {
+  color: var(--text-muted);
+}
+
+.summary-table tbody .day-col.has-value {
+  background: var(--green-dim);
+  color: var(--green);
+  font-weight: 600;
+}
+
+.summary-table tbody tr:nth-child(odd) {
+  background: rgba(255,255,255,0.015);
+}
+
+/* ── History Tab ── */
+.history-month-label {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-dim);
+}
+
+.history-day {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.history-day:hover { border-color: var(--border-light); background: var(--surface-2); }
+
+.history-date {
+  font-weight: 600;
+  font-size: 0.88rem;
+  min-width: 56px;
+  color: var(--text);
+}
+
+.history-dow {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  min-width: 32px;
+}
+
+.history-pills {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.history-pill {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  background: var(--surface-3);
+  color: var(--text-dim);
+}
+
+.history-pill.has-val { background: var(--green-dim); color: var(--green); }
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.habit-card { animation: fadeIn 0.2s ease both; }
+
+/* Responsive */
+
+/* Small phones (iPhone SE etc) */
+@media (max-width: 380px) {
+  .counter-btn { width: 36px; height: 36px; font-size: 1.05rem; }
+  .counter-value { min-width: 32px; font-size: 1.1rem; }
+  .habit-name { font-size: 0.86rem; }
+  .habit-card { padding: 12px 10px; gap: 10px; }
+  .date-display { font-size: 0.95rem; min-width: 150px; }
+  .summary-table .day-col { width: 34px; }
+}
+
+/* Landscape phones / wider phones (550px+) */
+@media (min-width: 550px) {
+  .app { max-width: 600px; padding-left: 20px; padding-right: 20px; }
+  .habit-card { padding: 18px 20px; gap: 16px; }
+  .habit-name { font-size: 1.05rem; }
+  .habit-streak { font-size: 0.8rem; }
+  .counter-btn { width: 46px; height: 46px; font-size: 1.35rem; border-radius: 10px; }
+  .counter-value { min-width: 50px; font-size: 1.45rem; }
+  .habit-color { height: 42px; }
+  .app-header { padding: 24px 0 18px; }
+  .date-display { font-size: 1.15rem; }
+  .nav-tab { font-size: 0.9rem; padding: 12px 12px; }
+  .section-divider { margin: 28px 0 24px; }
+  .summary-table .day-col { width: 46px; }
+  .summary-table th, .summary-table td { padding: 12px 8px; font-size: 0.82rem; }
+  .summary-table tbody .day-col { font-size: 0.9rem; }
+  .summary-table tbody .habit-col { font-size: 0.88rem; }
+  .summary-table .total-col { width: 58px; }
+  .add-habit-input { padding: 12px 16px; font-size: 0.92rem; }
+  .add-habit-btn { padding: 12px 20px; font-size: 0.88rem; }
+}
+
+/* Tablets and landscape wide screens (700px+) */
+@media (min-width: 700px) {
+  .app { max-width: 720px; padding-left: 28px; padding-right: 28px; }
+  .app-header { padding: 28px 0 20px; }
+  .date-display { font-size: 1.25rem; min-width: 240px; }
+  .date-arrow { width: 42px; height: 42px; font-size: 1rem; }
+  .icon-btn { width: 44px; height: 44px; }
+  .habit-card { padding: 20px 24px; margin-bottom: 12px; border-radius: 16px; }
+  .habit-name { font-size: 1.12rem; }
+  .habit-streak { font-size: 0.82rem; margin-top: 3px; }
+  .counter-btn { width: 52px; height: 52px; font-size: 1.5rem; border-radius: 12px; }
+  .counter-value { min-width: 56px; font-size: 1.6rem; }
+  .habit-counter { gap: 4px; }
+  .habit-color { height: 48px; width: 5px; }
+  .drag-handle { width: 24px; height: 40px; }
+  .nav-tabs { border-radius: 16px; padding: 5px; margin-bottom: 24px; }
+  .nav-tab { padding: 12px 16px; font-size: 0.95rem; border-radius: 12px; }
+  .summary-table { border-radius: 16px; }
+  .summary-table .day-col { width: 52px; font-size: 0.82rem; }
+  .summary-table th, .summary-table td { padding: 13px 8px; }
+  .summary-table tbody .day-col { font-size: 0.95rem; }
+  .summary-table tbody .habit-col { font-size: 0.92rem; }
+  .summary-table .total-col { width: 64px; font-size: 0.85rem; }
+  .summary-table .habit-col { padding-left: 18px; }
+  .section-divider { margin: 32px 0 28px; }
+  .range-btn { padding: 10px 10px; font-size: 0.85rem; }
+  .add-habit-row { margin: 10px 0 0; }
+  .add-habit-input { padding: 14px 18px; font-size: 0.95rem; border-radius: 10px; }
+  .add-habit-btn { padding: 14px 24px; font-size: 0.92rem; border-radius: 10px; }
+
+  /* Multi-week tables get more room */
+  .summary-table.weeks-2 .day-col { width: 38px; font-size: 0.78rem; }
+  .summary-table.weeks-4 .day-col { width: 24px; font-size: 0.7rem; padding: 10px 2px; }
+  .summary-table.weeks-4 .habit-col { font-size: 0.82rem; padding-left: 14px; min-width: 110px; width: 110px; }
+  .summary-table.weeks-month .day-col { width: 20px; font-size: 0.65rem; padding: 10px 2px; }
+  .summary-table.weeks-month .habit-col { font-size: 0.82rem; padding-left: 14px; min-width: 100px; width: 100px; }
+  .summary-table.weeks-all .day-col { width: 54px; font-size: 0.78rem; }
+  .summary-table.weeks-all .habit-col { min-width: 120px; width: 120px; }
+  .summary-table.weeks-all tbody .day-col { font-size: 0.92rem; }
+  .summary-table.weeks-2 .habit-col { padding-left: 14px; }
+}
+
+/* Desktop / large tablets (960px+) */
+@media (min-width: 960px) {
+  .app { max-width: 860px; padding-left: 36px; padding-right: 36px; }
+  .habit-card { padding: 22px 28px; }
+  .habit-name { font-size: 1.18rem; }
+  .counter-btn { width: 56px; height: 56px; font-size: 1.6rem; }
+  .counter-value { min-width: 64px; font-size: 1.75rem; }
+  .date-display { font-size: 1.3rem; min-width: 280px; }
+  .summary-table .day-col { width: 58px; }
+  .summary-table.weeks-2 .day-col { width: 44px; font-size: 0.82rem; }
+  .summary-table.weeks-4 .day-col { width: 30px; font-size: 0.72rem; padding: 12px 3px; }
+  .summary-table.weeks-4 .habit-col { font-size: 0.88rem; min-width: 140px; width: 140px; }
+  .summary-table.weeks-month .day-col { width: 24px; font-size: 0.68rem; padding: 12px 2px; }
+  .summary-table.weeks-month .habit-col { font-size: 0.88rem; min-width: 130px; width: 130px; }
+  .summary-table.weeks-all .day-col { width: 60px; font-size: 0.82rem; }
+  .summary-table.weeks-all .habit-col { min-width: 150px; width: 150px; }
+  .summary-table.weeks-all tbody .day-col { font-size: 1rem; }
+  .summary-table tbody .day-col { font-size: 1rem; }
+  .summary-table tbody .habit-col { font-size: 0.95rem; }
+  .history-day { padding: 14px 18px; }
+  .history-date { font-size: 0.95rem; }
+}
+
+/* ── Print Button ── */
+.print-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.print-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--border-light); }
+
+.summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.summary-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Print-only header — hidden on screen */
+.print-header {
+  display: none;
+}
+
+/* ── Print Styles ── */
+@media print {
+  /* Hide everything except the summary */
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .app-header,
+  .section-divider,
+  .nav-tabs,
+  .summary-range-toggle,
+  .summary-header,
+  .summary-actions,
+  #habitsList,
+  .add-habit-row,
+  #tab-history,
+  .panel-overlay,
+  .panel,
+  .no-print {
+    display: none !important;
+  }
+
+  .app {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #tab-summary {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .summary-table {
+    margin-bottom: 0 !important;
+  }
+
+  /* Print header */
+  .print-header {
+    display: block !important;
+    margin-bottom: 16pt;
+    padding-bottom: 10pt;
+    border-bottom: 2pt solid #222;
+  }
+
+  .print-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 18pt;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 2pt;
+  }
+
+  .print-subtitle {
+    font-size: 12pt;
+    color: #333;
+    margin-top: 4pt;
+  }
+
+  /* Summary table for print */
+  .summary-table {
+    background: #fff !important;
+    border: 1.5pt solid #333 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  .summary-table table {
+    table-layout: auto !important;
+  }
+
+  .summary-table tr {
+    border-bottom: 0.5pt solid #ccc !important;
+  }
+
+  .summary-table thead tr {
+    background: #f0f0f0 !important;
+    border-bottom: 1.5pt solid #333 !important;
+  }
+
+  .summary-table th,
+  .summary-table td {
+    color: #000 !important;
+    padding: 6pt 4pt !important;
+    font-size: 8pt !important;
+  }
+
+  .summary-table .habit-col {
+    font-size: 9pt !important;
+    padding-left: 8pt !important;
+    padding-right: 8pt !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    width: auto !important;
+  }
+
+  .summary-table .total-col {
+    font-weight: 800 !important;
+    color: #000 !important;
+    border-left: 1pt solid #999;
+  }
+
+  .summary-table tbody .day-col {
+    color: #000 !important;
+    font-size: 9pt !important;
+  }
+
+  .summary-table tbody .day-col.zero {
+    color: #bbb !important;
+  }
+
+  .summary-table tbody .day-col.has-value {
+    background: #e8f5e9 !important;
+    color: #2e7d32 !important;
+    font-weight: 700 !important;
+  }
+
+  .summary-table tbody .habit-col {
+    font-size: 9pt !important;
+    color: #000 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    width: auto !important;
+  }
+
+  .summary-table tbody tr:nth-child(odd) {
+    background: #fafafa !important;
+  }
+
+  .summary-table .week-end {
+    border-right: 1.5pt solid #666 !important;
+  }
+
+  /* Multi-week print */
+  .summary-table.weeks-2 .day-col {
+    font-size: 8pt !important;
+    padding: 5pt 2pt !important;
+  }
+
+  .summary-table.weeks-4 .day-col {
+    font-size: 7pt !important;
+    padding: 4pt 1pt !important;
+  }
+
+  .summary-table.weeks-month .day-col {
+    font-size: 6.5pt !important;
+    padding: 4pt 1pt !important;
+  }
+
+  .summary-table.weeks-month .habit-col {
+    font-size: 8pt !important;
+    padding-left: 6pt !important;
+    padding-right: 6pt !important;
+    white-space: nowrap !important;
+    width: auto !important;
+  }
+
+  .summary-table.weeks-2 .habit-col,
+  .summary-table.weeks-4 .habit-col {
+    font-size: 8pt !important;
+    padding-left: 6pt !important;
+    padding-right: 6pt !important;
+    white-space: nowrap !important;
+    width: auto !important;
+  }
+
+  .summary-table.weeks-2 tbody .day-col,
+  .summary-table.weeks-4 tbody .day-col {
+    font-size: 8pt !important;
+  }
+
+  .summary-table.weeks-month tbody .day-col {
+    font-size: 7pt !important;
+  }
+
+  .summary-table.weeks-all .day-col {
+    font-size: 9pt !important;
+    padding: 6pt 4pt !important;
+  }
+
+  .summary-table.weeks-all tbody .day-col {
+    font-size: 10pt !important;
+  }
+
+  /* Print footer */
+  .summary-table::after {
+    content: none;
+  }
+
+  /* Prevent blank trailing page */
+  html, body {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <!-- Top bar: date nav + settings — always visible -->
+  <div class="app-header">
+    <button class="date-arrow" onclick="shiftDay(-1)">◂</button>
+    <div class="date-display" id="dateDisplay">
+      <input type="date" id="datePicker" onchange="jumpToDate(this.value)">
+    </div>
+    <button class="date-arrow" onclick="shiftDay(1)">▸</button>
+    <div style="flex:1"></div>
+    <button class="icon-btn" onclick="openSettings()" title="Settings">⚙</button>
+  </div>
+
+  <!-- Activity counters — the primary interface -->
+  <div id="habitsList"></div>
+
+  <!-- Add activity — compact, below counters -->
+  <div class="add-habit-row" id="addHabitRow">
+    <input class="add-habit-input" id="addHabitInput" placeholder="+ Add an activity…" maxlength="50" onkeydown="if(event.key==='Enter')addHabit()">
+    <button class="add-habit-btn" onclick="addHabit()">Add</button>
+  </div>
+
+  <!-- Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Secondary tabs: Summary & History -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-tab="summary" onclick="switchTab('summary')">Summary</button>
+    <button class="nav-tab" data-tab="history" onclick="switchTab('history')">History</button>
+  </div>
+
+  <!-- SUMMARY TAB -->
+  <div id="tab-summary">
+    <div class="summary-range-toggle">
+      <button class="range-btn active" data-range="1" onclick="setSummaryRange(1)">This Week</button>
+      <button class="range-btn" data-range="2" onclick="setSummaryRange(2)">2 Weeks</button>
+      <button class="range-btn" data-range="4" onclick="setSummaryRange(4)">4 Weeks</button>
+      <button class="range-btn" data-range="month" onclick="setSummaryRange('month')">Month</button>
+      <button class="range-btn" data-range="all" onclick="setSummaryRange('all')">All</button>
+    </div>
+    <div class="print-header" id="printHeader">
+      <div class="print-title" id="printTitle">Activity Tracker</div>
+      <div class="print-subtitle" id="printSubtitle"></div>
+    </div>
+    <div class="summary-header">
+      <div class="summary-week-nav">
+        <button class="date-arrow" onclick="shiftWeek(-1)">◂</button>
+        <div class="summary-week-label" id="summaryWeekLabel"></div>
+        <button class="date-arrow" onclick="shiftWeek(1)">▸</button>
+      </div>
+      <div class="summary-actions">
+        <button class="print-btn no-print" onclick="printSummary()" title="Print summary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print
+        </button>
+        <button class="print-btn no-print" onclick="exportCSV()" title="Export to spreadsheet">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export
+        </button>
+      </div>
+    </div>
+    <div id="summaryContent"></div>
+  </div>
+
+  <!-- HISTORY TAB -->
+  <div id="tab-history" style="display:none">
+    <div id="historyContent"></div>
+  </div>
+</div>
+
+<!-- Settings Panel -->
+<div class="panel-overlay" id="panelOverlay" onclick="closeSettings()"></div>
+<div class="panel" id="settingsPanel">
+  <div class="panel-header">
+    <div class="panel-title">Settings</div>
+    <button class="panel-close" onclick="closeSettings()">✕</button>
+  </div>
+  <div class="panel-body">
+    <div class="setting-group">
+      <div class="setting-label">Theme</div>
+      <select class="setting-select" id="themeSelect" onchange="saveTheme()">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+      </select>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">Week Starts On</div>
+      <select class="setting-select" id="weekStartSelect" onchange="saveWeekStart()">
+        <option value="0">Sunday</option>
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6">Saturday</option>
+      </select>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">Manage Activities</div>
+      <div id="manageHabitsList"></div>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">Export / Import</div>
+      <div style="display:flex;gap:8px">
+        <button class="add-habit-btn" style="flex:1;font-size:0.8rem;padding:10px" onclick="exportData()">Export JSON</button>
+        <label class="add-habit-btn" style="flex:1;font-size:0.8rem;padding:10px;text-align:center;cursor:pointer">
+          Import JSON
+          <input type="file" accept=".json" style="display:none" onchange="importData(event)">
+        </label>
+      </div>
+    </div>
+
+    <div class="danger-zone">
+      <div class="setting-label">Danger Zone</div>
+      <button class="danger-btn" onclick="clearAllData()">Reset All Data</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// State
+// ═══════════════════════════════════════════════════════════════
+
+const COLORS = ['#e8834a','#5cb87a','#5b8fd9','#d45d5d','#a67ed6','#d4a74a','#4ac4c4','#d97aa5','#7aaa5c','#7a8ed9'];
+
+const TEMPLATES = [
+  {
+    name: 'The Process',
+    habits: [
+      'Conversation', 'TMS', 'Exchange', 'DTM', 'Good News Text',
+      'Booked PQI/MG1', 'PQI/MG1 Complete', 'QI/MG2 Complete',
+      '1st Time Guest @ IS', 'Follow Up/Expectations Mtg',
+      '2nd Time Guest @ IS', '2 Follow Up 2 Complete',
+      'Offer Extended', 'New Leg Registered'
+    ]
+  }
+];
+const STORAGE_KEY = 'habit_tracker_v1';
+
+let state = loadState();
+let viewDate = new Date();
+let summaryWeekOffset = 0;
+let summaryMonthOffset = 0;
+let summaryRange = 1;
+let currentTab = 'summary';
+
+function defaultState() {
+  return { habits: [], data: {}, weekStart: 0, theme: 'dark' };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const s = JSON.parse(raw);
+      return { ...defaultState(), ...s };
+    }
+  } catch(e) {}
+  return defaultState();
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Date helpers
+// ═══════════════════════════════════════════════════════════════
+
+function dateKey(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${dd}`;
+}
+
+function parseKey(k) {
+  const [y, m, d] = k.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function isToday(d) {
+  const t = new Date();
+  return d.getFullYear() === t.getFullYear() && d.getMonth() === t.getMonth() && d.getDate() === t.getDate();
+}
+
+function formatDisplay(d) {
+  const opts = { weekday: 'short', month: 'short', day: 'numeric' };
+  return d.toLocaleDateString('en', opts);
+}
+
+function formatRange(d1, d2) {
+  const o1 = { month: 'short', day: 'numeric' };
+  const o2 = d1.getMonth() === d2.getMonth() ? { day: 'numeric' } : { month: 'short', day: 'numeric' };
+  return d1.toLocaleDateString('en', o1) + ' – ' + d2.toLocaleDateString('en', o2);
+}
+
+function getWeekDates(offset) {
+  const today = new Date();
+  const dow = today.getDay();
+  const ws = state.weekStart;
+  let diff = dow - ws;
+  if (diff < 0) diff += 7;
+  const weekStart = new Date(today);
+  weekStart.setDate(today.getDate() - diff + offset * 7);
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(weekStart);
+    d.setDate(weekStart.getDate() + i);
+    days.push(d);
+  }
+  return days;
+}
+
+// Returns array of week-arrays for multi-week summaries
+// offset shifts the entire block; numWeeks = how many weeks to include
+// "This Week" + previous (numWeeks-1) weeks
+function getMultiWeekDates(offset, numWeeks) {
+  const weeks = [];
+  for (let w = numWeeks - 1; w >= 0; w--) {
+    weeks.push(getWeekDates(offset - w));
+  }
+  return weeks;
+}
+
+// Returns all days in a calendar month, grouped into 7-day weeks
+// offset: 0 = current month, -1 = last month, etc.
+function getMonthDates(offset) {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + offset;
+  const first = new Date(year, month, 1);
+  const last = new Date(year, month + 1, 0); // last day of month
+  const days = [];
+  for (let d = 1; d <= last.getDate(); d++) {
+    days.push(new Date(first.getFullYear(), first.getMonth(), d));
+  }
+  // Group into weeks (split every 7 days, with week boundaries on weekStart)
+  const ws = state.weekStart;
+  const weeks = [];
+  let currentWeek = [];
+  days.forEach(d => {
+    if (currentWeek.length > 0 && d.getDay() === ws) {
+      weeks.push(currentWeek);
+      currentWeek = [];
+    }
+    currentWeek.push(d);
+  });
+  if (currentWeek.length > 0) weeks.push(currentWeek);
+  return weeks;
+}
+
+// Unified helper: returns { weeks, allDays, label } for current summary mode
+function getSummaryDays() {
+  if (summaryRange === 'month') {
+    const weeks = getMonthDates(summaryMonthOffset);
+    const allDays = weeks.flat();
+    const first = allDays[0];
+    const label = first.toLocaleDateString('en', { month: 'long', year: 'numeric' });
+    return { weeks, allDays, label };
+  } else {
+    const weeks = getMultiWeekDates(summaryWeekOffset, summaryRange);
+    const allDays = weeks.flat();
+    const label = formatRange(allDays[0], allDays[allDays.length - 1]);
+    return { weeks, allDays, label };
+  }
+}
+
+// Returns array of { year, month, label, key } covering all months with data
+// plus enough to show at least 12 months ending at the current month
+function getAllMonths() {
+  const now = new Date();
+  const curYear = now.getFullYear();
+  const curMonth = now.getMonth();
+
+  // Find earliest month in data
+  let earliest = { year: curYear, month: curMonth - 11 }; // default: 12 months back
+  Object.keys(state.data).forEach(dk => {
+    const [y, m] = dk.split('-').map(Number);
+    const ym = { year: y, month: m - 1 };
+    if (ym.year < earliest.year || (ym.year === earliest.year && ym.month < earliest.month)) {
+      earliest = ym;
+    }
+  });
+
+  // Build months array from earliest to current
+  const months = [];
+  let y = earliest.year;
+  let m = earliest.month;
+  while (y < curYear || (y === curYear && m <= curMonth)) {
+    const label = new Date(y, m, 1).toLocaleDateString('en', { month: 'short', year: 'numeric' });
+    const shortLabel = new Date(y, m, 1).toLocaleDateString('en', { month: 'short' });
+    months.push({ year: y, month: m, label, shortLabel, key: `${y}-${String(m + 1).padStart(2, '0')}` });
+    m++;
+    if (m > 11) { m = 0; y++; }
+  }
+  return months;
+}
+
+// Sum all days in a given month for a given habit
+function getMonthTotal(year, month, habitId) {
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  let total = 0;
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dk = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    total += getCount(dk, habitId);
+  }
+  return total;
+}
+
+const DOW_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DOW_LETTER = ['S','M','T','W','T','F','S'];
+
+// ═══════════════════════════════════════════════════════════════
+// Activities CRUD
+// ═══════════════════════════════════════════════════════════════
+
+function addHabit() {
+  const input = document.getElementById('addHabitInput');
+  const name = input.value.trim();
+  if (!name) return;
+  if (state.habits.length >= 20) { alert('Max 20 activities'); return; }
+  const id = 'h_' + Date.now().toString(36);
+  const color = COLORS[state.habits.length % COLORS.length];
+  state.habits.push({ id, name, color, created: dateKey(new Date()) });
+  input.value = '';
+  saveState();
+  render();
+}
+
+function loadTemplate(index) {
+  const template = TEMPLATES[index];
+  if (!template) return;
+  if (state.habits.length > 0) {
+    if (!confirm('This will replace your current activities. Continue?')) return;
+    state.habits = [];
+  }
+  const created = dateKey(new Date());
+  template.habits.forEach((name, i) => {
+    const id = 'h_' + Date.now().toString(36) + '_' + i;
+    const color = COLORS[i % COLORS.length];
+    state.habits.push({ id, name, color, created });
+  });
+  saveState();
+  render();
+  renderSummary();
+}
+
+function deleteHabit(id) {
+  if (!confirm('Delete this activity and all its data?')) return;
+  state.habits = state.habits.filter(h => h.id !== id);
+  // Clean data
+  for (const dk of Object.keys(state.data)) {
+    if (state.data[dk][id] !== undefined) delete state.data[dk][id];
+  }
+  saveState();
+  render();
+  renderManageHabits();
+}
+
+function getCount(day, habitId) {
+  return (state.data[day] && state.data[day][habitId]) || 0;
+}
+
+function setCount(day, habitId, val) {
+  if (!state.data[day]) state.data[day] = {};
+  state.data[day][habitId] = Math.max(0, val);
+  if (state.data[day][habitId] === 0) delete state.data[day][habitId];
+  if (Object.keys(state.data[day]).length === 0) delete state.data[day];
+  saveState();
+}
+
+function increment(habitId) {
+  const day = dateKey(viewDate);
+  setCount(day, habitId, getCount(day, habitId) + 1);
+  render();
+}
+
+function decrement(habitId) {
+  const day = dateKey(viewDate);
+  const c = getCount(day, habitId);
+  if (c > 0) {
+    setCount(day, habitId, c - 1);
+    render();
+  }
+}
+
+// streak: consecutive days with count > 0 ending at viewDate or yesterday
+function getStreak(habitId) {
+  let count = 0;
+  const d = new Date(viewDate);
+  // if today has no count, check from yesterday
+  if (getCount(dateKey(d), habitId) === 0) d.setDate(d.getDate() - 1);
+  while (true) {
+    if (getCount(dateKey(d), habitId) > 0) {
+      count++;
+      d.setDate(d.getDate() - 1);
+    } else break;
+    if (count > 999) break;
+  }
+  return count;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Tabs
+// ═══════════════════════════════════════════════════════════════
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.getElementById('tab-summary').style.display = tab === 'summary' ? '' : 'none';
+  document.getElementById('tab-history').style.display = tab === 'history' ? '' : 'none';
+  if (tab === 'summary') renderSummary();
+  if (tab === 'history') renderHistory();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Render: Today
+// ═══════════════════════════════════════════════════════════════
+
+function render() {
+  // Date bar
+  const dd = document.getElementById('dateDisplay');
+  const today = isToday(viewDate);
+  const label = today ? 'Today, ' + viewDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : formatDisplay(viewDate);
+  const dot = today ? '<span class="today-dot"></span>' : '';
+  const dp = document.getElementById('datePicker');
+  dp.value = dateKey(viewDate);
+  dd.innerHTML = label + dot;
+  dd.appendChild(dp);
+
+  // Activities
+  const list = document.getElementById('habitsList');
+  if (state.habits.length === 0) {
+    let templatesHtml = '';
+    if (TEMPLATES.length > 0) {
+      templatesHtml = '<div class="templates-section">' +
+        '<div class="templates-label">Or start from a template:</div>' +
+        '<div class="templates-list">' +
+        TEMPLATES.map((t, i) => `
+          <button class="template-card" onclick="loadTemplate(${i})">
+            <div class="template-name">${esc(t.name)}</div>
+            <div class="template-count">${t.habits.length} activities</div>
+            <div class="template-preview">${t.habits.slice(0, 4).map(h => esc(h)).join(', ')}${t.habits.length > 4 ? ', …' : ''}</div>
+          </button>
+        `).join('') +
+        '</div></div>';
+    }
+    list.innerHTML = `<div class="empty-state">
+      <div class="empty-state-icon">📋</div>
+      <div class="empty-state-text">Add your first activity below to start tracking.</div>
+      ${templatesHtml}
+    </div>`;
+    return;
+  }
+
+  const day = dateKey(viewDate);
+  list.innerHTML = state.habits.map((h, i) => {
+    const count = getCount(day, h.id);
+    const streak = getStreak(h.id);
+    const streakText = streak > 0 ? `${streak}-day streak` : 'No streak';
+    return `<div class="habit-card" data-habit-id="${h.id}" data-habit-index="${i}" draggable="true" style="animation-delay:${i * 0.04}s">
+      <div class="drag-handle" title="Drag to reorder">
+        <div class="drag-handle-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="habit-color" style="background:${h.color}"></div>
+      <div class="habit-info">
+        <div class="habit-name">${esc(h.name)}</div>
+        <div class="habit-streak">${streakText}</div>
+      </div>
+      <div class="habit-counter">
+        <button class="counter-btn dec" onclick="decrement('${h.id}')">−</button>
+        <div class="counter-value ${count === 0 ? 'zero' : ''}">${count}</div>
+        <button class="counter-btn inc" onclick="increment('${h.id}')">+</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function shiftDay(n) {
+  viewDate.setDate(viewDate.getDate() + n);
+  render();
+}
+
+function jumpToDate(val) {
+  if (val) {
+    viewDate = new Date(val + 'T00:00:00');
+    render();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Render: Weekly Summary
+// ═══════════════════════════════════════════════════════════════
+
+function renderSummary() {
+  const isAll = summaryRange === 'all';
+
+  // Show/hide nav arrows (not needed for 'all')
+  document.querySelectorAll('.summary-week-nav .date-arrow').forEach(b => b.style.display = isAll ? 'none' : '');
+
+  const container = document.getElementById('summaryContent');
+  if (state.habits.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-text">Add activities first to see summaries.</div></div>';
+    updatePrintHeader();
+    return;
+  }
+
+  if (isAll) {
+    renderAllSummary(container);
+  } else {
+    renderDaySummary(container);
+  }
+  updatePrintHeader();
+}
+
+function updatePrintHeader() {
+  const rangeLabels = { 1: 'Weekly Summary', 2: '2-Week Summary', 4: '4-Week Summary', month: 'Monthly Summary', all: 'All-Time Summary' };
+  const label = document.getElementById('summaryWeekLabel').textContent;
+  document.getElementById('printTitle').textContent = 'Activity Tracker — ' + (rangeLabels[summaryRange] || 'Summary');
+  document.getElementById('printSubtitle').textContent = label;
+}
+
+function renderAllSummary(container) {
+  const months = getAllMonths();
+  const firstMonth = months[0];
+  const lastMonth = months[months.length - 1];
+  const label = firstMonth.label + ' – ' + lastMonth.label;
+  document.getElementById('summaryWeekLabel').textContent = label;
+
+  const compact = months.length > 12;
+
+  let html = `<div class="summary-table weeks-all"><table><thead><tr>`;
+  html += '<th class="habit-col">Activity</th>';
+  months.forEach(m => {
+    const colLabel = compact ? m.shortLabel + '<br><span style="font-size:0.55rem;opacity:0.5">' + String(m.year).slice(2) + '</span>'
+      : m.shortLabel + '<br><span style="font-size:0.6rem;opacity:0.5">' + m.year + '</span>';
+    html += `<th class="day-col">${colLabel}</th>`;
+  });
+  html += '<th class="total-col">Total</th></tr></thead><tbody>';
+
+  state.habits.forEach(h => {
+    html += '<tr>';
+    html += `<td class="habit-col">${esc(h.name)}</td>`;
+    let grandTotal = 0;
+    months.forEach(m => {
+      const t = getMonthTotal(m.year, m.month, h.id);
+      grandTotal += t;
+      const cls = t > 0 ? 'has-value' : 'zero';
+      html += `<td class="day-col ${cls}">${t || '·'}</td>`;
+    });
+    html += `<td class="total-col">${grandTotal}</td>`;
+    html += '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  container.innerHTML = html;
+}
+
+function renderDaySummary(container) {
+  const { weeks, allDays, label } = getSummaryDays();
+
+  document.getElementById('summaryWeekLabel').textContent = label;
+
+  const isMonth = summaryRange === 'month';
+  const weeksClass = isMonth ? 'weeks-month' : (summaryRange > 1 ? 'weeks-' + summaryRange : '');
+
+  // Header row
+  let html = `<div class="summary-table ${weeksClass}"><table><thead><tr>`;
+  html += '<th class="habit-col">Activity</th>';
+  weeks.forEach((week, wi) => {
+    const isLastWeek = wi === weeks.length - 1;
+    week.forEach((d, di) => {
+      const isLastDay = di === week.length - 1;
+      const endCls = (!isLastWeek && isLastDay) ? ' week-end' : '';
+      let dayLabel;
+      if (isMonth || summaryRange >= 4) {
+        dayLabel = `<span style="font-size:0.6rem">${d.getDate()}</span>`;
+      } else if (summaryRange <= 2) {
+        dayLabel = `${DOW_LETTER[d.getDay()]}<br><span style="font-size:0.7rem;opacity:0.6">${d.getDate()}</span>`;
+      }
+      html += `<th class="day-col${endCls}">${dayLabel}</th>`;
+    });
+  });
+  html += '<th class="total-col">Total</th></tr></thead><tbody>';
+
+  // Activity rows
+  state.habits.forEach(h => {
+    html += '<tr>';
+    html += `<td class="habit-col">${esc(h.name)}</td>`;
+    let total = 0;
+    weeks.forEach((week, wi) => {
+      const isLastWeek = wi === weeks.length - 1;
+      week.forEach((d, di) => {
+        const c = getCount(dateKey(d), h.id);
+        total += c;
+        const cls = c > 0 ? 'has-value' : 'zero';
+        const isLastDay = di === week.length - 1;
+        const endCls = (!isLastWeek && isLastDay) ? ' week-end' : '';
+        html += `<td class="day-col ${cls}${endCls}">${c || '·'}</td>`;
+      });
+    });
+    html += `<td class="total-col">${total}</td>`;
+    html += '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  container.innerHTML = html;
+}
+
+function setSummaryRange(n) {
+  summaryRange = n;
+  summaryWeekOffset = 0;
+  summaryMonthOffset = 0;
+  document.querySelectorAll('.range-btn').forEach(b => b.classList.toggle('active', b.dataset.range === String(n)));
+  renderSummary();
+}
+
+function shiftWeek(n) {
+  if (summaryRange === 'month') {
+    summaryMonthOffset += n;
+  } else {
+    summaryWeekOffset += n;
+  }
+  renderSummary();
+}
+
+function exportCSV() {
+  if (state.habits.length === 0) return;
+
+  // Helper: escape CSV cell
+  const csvCell = (val) => {
+    const s = String(val);
+    if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  };
+
+  const rows = [];
+
+  if (summaryRange === 'all') {
+    // All-time: monthly columns
+    const months = getAllMonths();
+
+    const header = ['Activity'];
+    months.forEach(m => header.push(m.label));
+    header.push('Total');
+    rows.push(header.map(csvCell).join(','));
+
+    state.habits.forEach(h => {
+      const row = [h.name];
+      let grandTotal = 0;
+      months.forEach(m => {
+        const t = getMonthTotal(m.year, m.month, h.id);
+        grandTotal += t;
+        row.push(t);
+      });
+      row.push(grandTotal);
+      rows.push(row.map(csvCell).join(','));
+    });
+
+    // Totals row
+    const totalsRow = ['TOTAL'];
+    let grandTotal = 0;
+    months.forEach(m => {
+      let mTotal = 0;
+      state.habits.forEach(h => { mTotal += getMonthTotal(m.year, m.month, h.id); });
+      grandTotal += mTotal;
+      totalsRow.push(mTotal);
+    });
+    totalsRow.push(grandTotal);
+    rows.push(totalsRow.map(csvCell).join(','));
+
+    const csv = rows.join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `activity-tracker_all-time_${months[0].key}_to_${months[months.length - 1].key}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    return;
+  }
+
+  // Day-level views: 1-week, 2-week, 4-week, month
+  const { weeks, allDays } = getSummaryDays();
+  const DOW_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const hasMultiGroups = weeks.length > 1;
+
+  const header = ['Activity'];
+  weeks.forEach((week, wi) => {
+    if (wi > 0 && hasMultiGroups) header.push('');
+    week.forEach(d => {
+      const label = DOW_NAMES[d.getDay()] + ' ' +
+        d.toLocaleDateString('en', { month: 'short', day: 'numeric' });
+      header.push(label);
+    });
+  });
+  header.push('Total');
+  rows.push(header.map(csvCell).join(','));
+
+  state.habits.forEach(h => {
+    const row = [h.name];
+    let total = 0;
+    weeks.forEach((week, wi) => {
+      if (wi > 0 && hasMultiGroups) row.push('');
+      week.forEach(d => {
+        const c = getCount(dateKey(d), h.id);
+        total += c;
+        row.push(c);
+      });
+    });
+    row.push(total);
+    rows.push(row.map(csvCell).join(','));
+  });
+
+  const totalsRow = ['TOTAL'];
+  weeks.forEach((week, wi) => {
+    if (wi > 0 && hasMultiGroups) totalsRow.push('');
+    week.forEach(d => {
+      let dayTotal = 0;
+      state.habits.forEach(h => { dayTotal += getCount(dateKey(d), h.id); });
+      totalsRow.push(dayTotal);
+    });
+  });
+  let grandTotal = 0;
+  state.habits.forEach(h => {
+    allDays.forEach(d => { grandTotal += getCount(dateKey(d), h.id); });
+  });
+  totalsRow.push(grandTotal);
+  rows.push(totalsRow.map(csvCell).join(','));
+
+  const csv = rows.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  const rangeLabels = { 1: '1-week', 2: '2-week', 4: '4-week', month: 'month' };
+  const firstDate = dateKey(allDays[0]);
+  const lastDate = dateKey(allDays[allDays.length - 1]);
+  a.download = `activity-tracker_${rangeLabels[summaryRange] || 'summary'}_${firstDate}_to_${lastDate}.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function printSummary() {
+  // Set print header text with date range
+  const rangeLabels = { 1: 'Weekly Summary', 2: '2-Week Summary', 4: '4-Week Summary', month: 'Monthly Summary', all: 'All-Time Summary' };
+  const dateRange = document.getElementById('summaryWeekLabel').textContent;
+  const title = 'Activity Tracker — ' + (rangeLabels[summaryRange] || 'Summary');
+
+  document.getElementById('printTitle').textContent = title;
+  document.getElementById('printSubtitle').textContent = dateRange;
+
+  // Temporarily show print-header so browser renders it before print
+  const ph = document.getElementById('printHeader');
+  ph.style.display = 'block';
+  ph.style.position = 'absolute';
+  ph.style.left = '-9999px';
+
+  // Dynamically set page orientation: landscape for multi-column views
+  const pageStyle = document.createElement('style');
+  pageStyle.id = 'print-page-size';
+  if (summaryRange === 1) {
+    pageStyle.textContent = '@page { size: letter portrait; margin: 0.6in 0.5in; }';
+  } else {
+    pageStyle.textContent = '@page { size: letter landscape; margin: 0.5in; }';
+  }
+  document.head.appendChild(pageStyle);
+
+  // Wait for DOM to paint, then print
+  const origTitle = document.title;
+  document.title = title + ' — ' + dateRange;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      // Reset inline styles — @media print CSS takes over
+      ph.style.display = '';
+      ph.style.position = '';
+      ph.style.left = '';
+      window.print();
+
+      setTimeout(() => {
+        document.title = origTitle;
+        const ps = document.getElementById('print-page-size');
+        if (ps) ps.remove();
+      }, 1000);
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Render: History
+// ═══════════════════════════════════════════════════════════════
+
+function renderHistory() {
+  const container = document.getElementById('historyContent');
+  if (state.habits.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-text">Add activities first to see history.</div></div>';
+    return;
+  }
+
+  // Collect all dates with data, plus last 14 days
+  const allDates = new Set();
+  Object.keys(state.data).forEach(k => allDates.add(k));
+  for (let i = 0; i < 14; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    allDates.add(dateKey(d));
+  }
+
+  const sorted = [...allDates].sort().reverse();
+
+  let html = '';
+  let lastMonth = '';
+
+  sorted.forEach(dk => {
+    const d = parseKey(dk);
+    const monthLabel = d.toLocaleDateString('en', { month: 'long', year: 'numeric' });
+    if (monthLabel !== lastMonth) {
+      html += `<div class="history-month-label">${monthLabel}</div>`;
+      lastMonth = monthLabel;
+    }
+
+    const pills = state.habits.map(h => {
+      const c = getCount(dk, h.id);
+      return `<span class="history-pill ${c > 0 ? 'has-val' : ''}" style="${c > 0 ? 'background:' + h.color + '22;color:' + h.color : ''}">${c}</span>`;
+    }).join('');
+
+    html += `<div class="history-day" onclick="goToDay('${dk}')">
+      <div class="history-date">${d.getDate()}</div>
+      <div class="history-dow">${DOW_SHORT[d.getDay()]}</div>
+      <div class="history-pills">${pills}</div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function goToDay(dk) {
+  viewDate = parseKey(dk);
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Settings
+// ═══════════════════════════════════════════════════════════════
+
+function openSettings() {
+  document.getElementById('panelOverlay').classList.add('open');
+  document.getElementById('settingsPanel').classList.add('open');
+  document.getElementById('weekStartSelect').value = state.weekStart;
+  document.getElementById('themeSelect').value = state.theme || 'dark';
+  renderManageHabits();
+}
+
+function saveTheme() {
+  state.theme = document.getElementById('themeSelect').value;
+  applyTheme();
+  saveState();
+}
+
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', state.theme || 'dark');
+}
+
+function closeSettings() {
+  document.getElementById('panelOverlay').classList.remove('open');
+  document.getElementById('settingsPanel').classList.remove('open');
+  if (currentTab === 'summary') renderSummary();
+}
+
+function saveWeekStart() {
+  state.weekStart = parseInt(document.getElementById('weekStartSelect').value);
+  saveState();
+}
+
+function renderManageHabits() {
+  const el = document.getElementById('manageHabitsList');
+  if (state.habits.length === 0) {
+    el.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;padding:8px 0">No activities yet.</div>';
+    return;
+  }
+  el.innerHTML = state.habits.map((h, i) => `
+    <div class="manage-habit" id="mh-${h.id}">
+      <div class="mh-arrows">
+        <button class="mh-arrow" onclick="moveHabit(${i}, -1)" title="Move up" ${i === 0 ? 'disabled' : ''}>▲</button>
+        <button class="mh-arrow" onclick="moveHabit(${i}, 1)" title="Move down" ${i === state.habits.length - 1 ? 'disabled' : ''}>▼</button>
+      </div>
+      <div class="mh-color" style="background:${h.color}"></div>
+      <div class="mh-name" id="mh-name-${h.id}">${esc(h.name)}</div>
+      <button class="mh-edit" onclick="startEditHabit('${h.id}')" title="Rename">✎</button>
+      <button class="mh-delete" onclick="deleteHabit('${h.id}')" title="Delete">✕</button>
+    </div>
+  `).join('');
+}
+
+function startEditHabit(id) {
+  const habit = state.habits.find(h => h.id === id);
+  if (!habit) return;
+  const nameEl = document.getElementById('mh-name-' + id);
+  const editBtn = nameEl.nextElementSibling;
+  const currentName = habit.name;
+
+  // Replace name div with input
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'mh-name-input';
+  input.value = currentName;
+  input.maxLength = 50;
+  nameEl.replaceWith(input);
+
+  // Hide edit button
+  editBtn.style.display = 'none';
+
+  input.focus();
+  input.select();
+
+  const save = () => {
+    const newName = input.value.trim();
+    if (newName && newName !== currentName) {
+      habit.name = newName;
+      saveState();
+      render();
+      renderSummary();
+    }
+    renderManageHabits();
+  };
+
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+    if (e.key === 'Escape') { input.value = currentName; input.blur(); }
+  });
+}
+
+function moveHabit(index, direction) {
+  const newIndex = index + direction;
+  if (newIndex < 0 || newIndex >= state.habits.length) return;
+  const temp = state.habits[index];
+  state.habits[index] = state.habits[newIndex];
+  state.habits[newIndex] = temp;
+  saveState();
+  renderManageHabits();
+  render();
+}
+
+function clearAllData() {
+  if (!confirm('This will permanently delete all activities and history. Continue?')) return;
+  if (!confirm('Are you sure? This cannot be undone.')) return;
+  state = defaultState();
+  saveState();
+  applyTheme();
+  closeSettings();
+  render();
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'activity-tracker-backup.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (imported.habits && imported.data) {
+        if (confirm(`Import ${imported.habits.length} activities? This will replace your current data.`)) {
+          state = { ...defaultState(), ...imported };
+          saveState();
+          applyTheme();
+          closeSettings();
+          render();
+        }
+      } else {
+        alert('Invalid file format.');
+      }
+    } catch(err) {
+      alert('Could not parse file.');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Init
+// ═══════════════════════════════════════════════════════════════
+
+applyTheme();
+render();
+renderSummary();
+
+// ═══════════════════════════════════════════════════════════════
+// Drag & Drop reorder (mouse + touch)
+// ═══════════════════════════════════════════════════════════════
+
+let dragSrcIndex = null;
+
+const habitsList = document.getElementById('habitsList');
+
+habitsList.addEventListener('dragstart', e => {
+  const card = e.target.closest('.habit-card');
+  if (!card) return;
+  dragSrcIndex = parseInt(card.dataset.habitIndex);
+  card.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', dragSrcIndex);
+});
+
+habitsList.addEventListener('dragend', e => {
+  const card = e.target.closest('.habit-card');
+  if (card) card.classList.remove('dragging');
+  clearDragClasses();
+  dragSrcIndex = null;
+});
+
+habitsList.addEventListener('dragover', e => {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  const card = e.target.closest('.habit-card');
+  if (!card || parseInt(card.dataset.habitIndex) === dragSrcIndex) return;
+  clearDragClasses();
+  const rect = card.getBoundingClientRect();
+  const midY = rect.top + rect.height / 2;
+  if (e.clientY < midY) {
+    card.classList.add('drag-over-above');
+  } else {
+    card.classList.add('drag-over-below');
+  }
+});
+
+habitsList.addEventListener('dragleave', e => {
+  const card = e.target.closest('.habit-card');
+  if (card) {
+    card.classList.remove('drag-over-above', 'drag-over-below');
+  }
+});
+
+habitsList.addEventListener('drop', e => {
+  e.preventDefault();
+  const card = e.target.closest('.habit-card');
+  if (!card || dragSrcIndex === null) return;
+  let targetIndex = parseInt(card.dataset.habitIndex);
+  const rect = card.getBoundingClientRect();
+  const midY = rect.top + rect.height / 2;
+  const below = e.clientY >= midY;
+
+  if (dragSrcIndex === targetIndex) return;
+
+  // Remove from old position
+  const [moved] = state.habits.splice(dragSrcIndex, 1);
+  // Adjust target if source was before target
+  if (dragSrcIndex < targetIndex) targetIndex--;
+  if (below) targetIndex++;
+  state.habits.splice(targetIndex, 0, moved);
+
+  saveState();
+  render();
+  clearDragClasses();
+  dragSrcIndex = null;
+});
+
+function clearDragClasses() {
+  habitsList.querySelectorAll('.habit-card').forEach(c => {
+    c.classList.remove('drag-over-above', 'drag-over-below', 'dragging');
+  });
+}
+
+// ── Touch-based drag reorder ──
+
+let touchDragIndex = null;
+let touchClone = null;
+let touchStartY = 0;
+let touchMoved = false;
+
+habitsList.addEventListener('touchstart', e => {
+  const handle = e.target.closest('.drag-handle');
+  if (!handle) return;
+  const card = handle.closest('.habit-card');
+  if (!card) return;
+  touchDragIndex = parseInt(card.dataset.habitIndex);
+  touchStartY = e.touches[0].clientY;
+  touchMoved = false;
+}, { passive: true });
+
+habitsList.addEventListener('touchmove', e => {
+  if (touchDragIndex === null) return;
+  const touch = e.touches[0];
+
+  if (!touchMoved && Math.abs(touch.clientY - touchStartY) > 8) {
+    touchMoved = true;
+    const srcCard = habitsList.querySelector(`[data-habit-index="${touchDragIndex}"]`);
+    if (srcCard) {
+      srcCard.classList.add('dragging');
+      // Create floating clone
+      touchClone = srcCard.cloneNode(true);
+      touchClone.style.cssText = `position:fixed;left:${srcCard.getBoundingClientRect().left}px;width:${srcCard.offsetWidth}px;z-index:200;pointer-events:none;opacity:0.85;box-shadow:0 8px 32px rgba(0,0,0,0.5);transform:scale(1.03);`;
+      document.body.appendChild(touchClone);
+    }
+  }
+
+  if (!touchMoved) return;
+  e.preventDefault();
+
+  if (touchClone) {
+    touchClone.style.top = (touch.clientY - 28) + 'px';
+  }
+
+  clearDragClasses();
+  const srcCard = habitsList.querySelector(`[data-habit-index="${touchDragIndex}"]`);
+  if (srcCard) srcCard.classList.add('dragging');
+
+  // Find card under finger
+  const elUnder = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (!elUnder) return;
+  const cardUnder = elUnder.closest('.habit-card');
+  if (!cardUnder || parseInt(cardUnder.dataset.habitIndex) === touchDragIndex) return;
+  const rect = cardUnder.getBoundingClientRect();
+  const midY = rect.top + rect.height / 2;
+  if (touch.clientY < midY) {
+    cardUnder.classList.add('drag-over-above');
+  } else {
+    cardUnder.classList.add('drag-over-below');
+  }
+}, { passive: false });
+
+habitsList.addEventListener('touchend', e => {
+  if (touchDragIndex === null) return;
+  if (touchClone) {
+    touchClone.remove();
+    touchClone = null;
+  }
+
+  if (touchMoved) {
+    // Find which card we're over
+    const lastTouch = e.changedTouches[0];
+    const elUnder = document.elementFromPoint(lastTouch.clientX, lastTouch.clientY);
+    const cardUnder = elUnder ? elUnder.closest('.habit-card') : null;
+    if (cardUnder) {
+      let targetIndex = parseInt(cardUnder.dataset.habitIndex);
+      const rect = cardUnder.getBoundingClientRect();
+      const below = lastTouch.clientY >= rect.top + rect.height / 2;
+      if (touchDragIndex !== targetIndex) {
+        const [moved] = state.habits.splice(touchDragIndex, 1);
+        if (touchDragIndex < targetIndex) targetIndex--;
+        if (below) targetIndex++;
+        state.habits.splice(targetIndex, 0, moved);
+        saveState();
+      }
+    }
+    render();
+  }
+
+  clearDragClasses();
+  touchDragIndex = null;
+  touchMoved = false;
+});
+
+// ═══════════════════════════════════════════════════════════════
+// Service Worker Registration (offline support)
+// ═══════════════════════════════════════════════════════════════
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      console.log('SW registered, scope:', reg.scope);
+    }).catch(err => {
+      console.log('SW registration failed:', err);
+    });
+  });
+}
+</script>
+</body>
+</html>
