@@ -44,7 +44,8 @@ Important implementation details:
 
 - User data is browser-local; there is no backend or account system.
 - State is stored in `localStorage` under `habit_tracker_v1`.
-- The local service-worker cache is named `activity-tracker-v5`. During deployment, the Pages workflow stamps both the footer and cache name with `v<run number>.<attempt>-<short commit SHA>`, so each published copy has a visible version and its own offline cache.
+- The local service-worker cache is named `activity-tracker-v6`. During deployment, the Pages workflow stamps both the footer and cache name with `v<run number>.<attempt>-<short commit SHA>`, so each published copy has a visible version and its own offline cache.
+- App HTML is network-first with an offline fallback. The app checks for updates on launch, foregrounding, and reconnecting; the footer also has a manual check. A new version prompts for reload rather than interrupting entry. On the first upgrade from the original v4/v5 or deployed v4.1 caches (which have no update UI), the service worker reloads open app windows once after activating. Saved activity data is untouched; iOS still needs to discover the new service worker before this migration can run.
 - Relative asset paths are deliberate so the app works at the GitHub project path `/activity-tracker/`.
 - Editing `site/` and pushing to `main` triggers an automatic deployment.
 

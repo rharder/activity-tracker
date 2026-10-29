@@ -95,6 +95,25 @@ body {
   overflow-wrap: anywhere;
 }
 
+.update-notice:not([hidden]) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: 0.85rem;
+}
+
+.app-footer button {
+  display: block;
+  margin: 12px auto 8px;
+  font-size: 0.75rem;
+}
+
 .app-header {
   padding: 20px 0 16px;
   display: flex;
@@ -1247,6 +1266,10 @@ body {
 <body>
 
 <div class="app" id="app">
+  <div class="update-notice no-print" id="updateNotice" role="status" hidden>
+    <span>A new version is ready.</span>
+    <button class="add-habit-btn" onclick="window.location.reload()">Reload app</button>
+  </div>
   <!-- Top bar: date nav + settings — always visible -->
   <div class="app-header">
     <button class="date-arrow" onclick="shiftDay(-1)">◂</button>
@@ -1316,6 +1339,8 @@ body {
 
   <footer class="app-footer no-print" aria-label="Application version">
     Version <span id="appVersion">development</span>
+    <button class="add-habit-btn" id="checkUpdatesButton" onclick="checkForUpdates(true)">Check for updates</button>
+    <p id="updateStatus" role="status"></p>
   </footer>
 </div>
 
@@ -2428,15 +2453,59 @@ habitsList.addEventListener('touchend', e => {
 // Service Worker Registration (offline support)
 // ═══════════════════════════════════════════════════════════════
 
+let appRegistration = null;
+let checkingForUpdates = false;
+
+async function checkForUpdates(manual = false) {
+  if (checkingForUpdates) return;
+  checkingForUpdates = true;
+  const button = document.getElementById('checkUpdatesButton');
+  const status = document.getElementById('updateStatus');
+  button.disabled = true;
+  if (manual) status.textContent = 'Checking for updates…';
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    if (!navigator.onLine) throw new Error('Offline');
+    // Do not block the version check on a service-worker installation.
+    if (appRegistration) appRegistration.update().catch(() => {});
+    const response = await fetch('./index.html', { cache: 'no-store', signal: controller.signal });
+    if (!response.ok || response.headers.get('X-Activity-Tracker-Offline')) throw new Error('Unavailable');
+    const html = new DOMParser().parseFromString(await response.text(), 'text/html');
+    const version = html.getElementById('appVersion')?.textContent;
+    if (!version) throw new Error('Missing version');
+    if (version !== document.getElementById('appVersion').textContent) {
+      document.getElementById('updateNotice').hidden = false;
+      status.textContent = 'New version ready — use Reload app above.';
+    } else if (manual) {
+      status.textContent = 'You have the latest version.';
+    }
+  } catch (err) {
+    if (manual) status.textContent = 'Could not check for updates. Try again when online.';
+  } finally {
+    clearTimeout(timeout);
+    checkingForUpdates = false;
+    button.disabled = false;
+  }
+}
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').then(reg => {
-      console.log('SW registered, scope:', reg.scope);
+    navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(reg => {
+      appRegistration = reg;
+      checkForUpdates();
     }).catch(err => {
       console.log('SW registration failed:', err);
     });
   });
+  navigator.serviceWorker.addEventListener('controllerchange', () => checkForUpdates());
 }
+
+window.addEventListener('pageshow', () => checkForUpdates());
+window.addEventListener('online', () => checkForUpdates());
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') checkForUpdates();
+});
 </script>
 </body>
 </html>
