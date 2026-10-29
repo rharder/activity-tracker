@@ -44,7 +44,7 @@ Important implementation details:
 
 - User data is browser-local; there is no backend or account system.
 - State is stored in `localStorage` under `habit_tracker_v1`.
-- The service-worker cache is currently named `activity-tracker-v4`.
+- The local service-worker cache is named `activity-tracker-v5`. During deployment, the Pages workflow stamps both the footer and cache name with `v<run number>.<attempt>-<short commit SHA>`, so each published copy has a visible version and its own offline cache.
 - Relative asset paths are deliberate so the app works at the GitHub project path `/activity-tracker/`.
 - Editing `site/` and pushing to `main` triggers an automatic deployment.
 
@@ -91,4 +91,3 @@ The first Pages workflow attempt failed because Pages had not yet been enabled. 
 - Test through an HTTP server rather than opening `index.html` directly; service workers do not run from `file://` URLs.
 - Browser data does not automatically transfer between devices because the app uses `localStorage`.
 - Keep deployable files within `site/`, because the Pages workflow uploads only that directory.
-

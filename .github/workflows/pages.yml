@@ -27,6 +27,35 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      # Stamp the deployed copy only; keep local development dependency-free.
+      # Every deployment (including reruns) gets its own offline cache.
+      - name: Stamp application version
+        run: |
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          version = f"v{os.environ['GITHUB_RUN_NUMBER']}.{os.environ['GITHUB_RUN_ATTEMPT']}-{os.environ['GITHUB_SHA'][:7]}"
+          html_path = Path('site/index.html')
+          html = html_path.read_text()
+          marker = '<span id="appVersion">development</span>'
+          assert html.count(marker) == 1, 'Expected one application version marker'
+          html_path.write_text(html.replace(marker, f'<span id="appVersion">{version}</span>'))
+
+          sw_path = Path('site/sw.js')
+          sw, count = re.subn(
+              r"^const CACHE_NAME = '[^']+';",
+              f"const CACHE_NAME = 'activity-tracker-{version}';",
+              sw_path.read_text(),
+              count=1,
+              flags=re.MULTILINE,
+          )
+          assert count == 1, 'Expected one service-worker cache name'
+          sw_path.write_text(sw)
+          print(f'Deploying {version}')
+          PY
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v4
         with:
@@ -35,4 +64,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

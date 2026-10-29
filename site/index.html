@@ -85,6 +85,16 @@ body {
   padding: 0 16px 100px;
 }
 
+.app-footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
 .app-header {
   padding: 20px 0 16px;
   display: flex;
@@ -1303,6 +1313,10 @@ body {
   <div id="tab-history" style="display:none">
     <div id="historyContent"></div>
   </div>
+
+  <footer class="app-footer no-print" aria-label="Application version">
+    Version <span id="appVersion">development</span>
+  </footer>
 </div>
 
 <!-- Settings Panel -->
