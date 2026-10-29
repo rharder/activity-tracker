@@ -65,6 +65,14 @@ git switch main
 git pull --ff-only
 ```
 
+### Continue with OpenCode
+
+The repository root now contains `AGENTS.md`, which packages the durable agent context for OpenCode: architecture, invariants, development commands, verification, and deployment constraints. OpenCode loads this file automatically when started from the repository root. Keep `AGENTS.md` in Git so the same guidance travels with every clone.
+
+The full Codex conversation is not stored in this repository. `HANDOFF.md`, `README.md`, Git history, and `AGENTS.md` are the portable development context. There was no unfinished implementation work when the OpenCode handoff was prepared.
+
+The tracker's user data is separate from development context because it lives in browser `localStorage`. If that data should move too, use **Settings → Export JSON** on the old device and **Import JSON** on the new device. The exported `activity-tracker-backup*.json` file can contain personal activity history and is intentionally ignored by Git; transfer it privately rather than committing it.
+
 ## Useful verification commands
 
 ```sh
