@@ -1,7 +1,11 @@
-const CACHE_NAME = 'activity-tracker-v6';
+const CACHE_NAME = 'activity-tracker-v8';
+const SDK_CACHE = 'activity-firebase-sdk-v12.18.0';
 const ASSETS = [
   './',
   './index.html',
+  './sync-state.js',
+  './cloud-sync.js',
+  './firebase-config.js',
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
@@ -35,72 +39,36 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Prefer fresh app HTML, including explicit version checks; retain offline use.
-async function freshPage(request) {
-  const cache = await caches.open(CACHE_NAME);
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000);
-  try {
-    const response = await fetch(request, { cache: 'no-store', signal: controller.signal });
-    if (!response.ok) throw new Error('Page unavailable');
-    await cache.put(request, response.clone());
-    return response;
-  } catch (err) {
-    const cached = await cache.match(request, { ignoreSearch: true }) || await cache.match('./index.html');
-    if (cached) {
-      const headers = new Headers(cached.headers);
-      headers.set('X-Activity-Tracker-Offline', 'true');
-      return new Response(cached.body, { status: cached.status, headers });
-    }
-    return new Response('Offline. Please connect to the internet and try again.', {
-      status: 503,
-      headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-    });
-  } finally {
-    clearTimeout(timeout);
-  }
+async function cachedFirst(request, cacheName, page = false) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(request, { ignoreSearch: page }) ||
+    (page ? await cache.match('./index.html') : null);
+  if (cached) return cached;
+  const response = await fetch(request);
+  if (response.ok) await cache.put(request, response.clone());
+  return response;
 }
 
-// Other assets remain cache-first, with background revalidation.
+// Never put an authentication token, account response, or Firestore data in the
+// service-worker cache. Only our local app and pinned public SDK files qualify.
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
-
   const url = new URL(event.request.url);
   const scope = new URL('./', self.location.href);
-  if (url.origin === scope.origin && (event.request.mode === 'navigate' ||
-      url.pathname === scope.pathname || url.pathname === scope.pathname + 'index.html')) {
-    event.respondWith(freshPage(event.request));
+
+  if (url.origin === 'https://www.gstatic.com' &&
+      /^\/firebasejs\/12\.18\.0\/firebase-(app|auth|firestore)(-compat)?\.js$/.test(url.pathname)) {
+    event.respondWith(cachedFirst(event.request, SDK_CACHE));
     return;
   }
+  if (url.origin !== scope.origin || !url.pathname.startsWith(scope.pathname)) return;
 
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) {
-        // Return cache hit, but also update cache in background
-        event.waitUntil(fetch(event.request).then(response => {
-          if (response.ok) {
-            return caches.open(CACHE_NAME).then(cache => {
-              return cache.put(event.request, response);
-            });
-          }
-        }).catch(() => {}));
-        return cached;
-      }
-      // Not in cache — fetch from network and cache it
-      return fetch(event.request).then(response => {
-        if (response.ok) {
-          const responseClone = response.clone();
-          event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone)));
-        }
-        return response;
-      }).catch(() => {
-        // Offline and not cached — return a basic offline fallback for HTML
-        if (event.request.headers.get('accept')?.includes('text/html')) {
-          return new Response('<html><body style="font-family:sans-serif;text-align:center;padding:40px"><h2>Offline</h2><p>Please connect to the internet and reload.</p></body></html>', {
-            headers: { 'Content-Type': 'text/html' }
-          });
-        }
-      });
-    })
-  );
+  if (event.request.headers.get('X-Activity-Tracker-Update') === '1') {
+    event.respondWith(fetch(event.request, { cache: 'no-store' }).catch(() =>
+      new Response('Offline', { status: 503 })));
+    return;
+  }
+  // A bad connection must not delay startup. Updates are installed as a complete
+  // app in a NEW cache, never mixed into the currently working offline copy.
+  event.respondWith(cachedFirst(event.request, CACHE_NAME, event.request.mode === 'navigate'));
 });

@@ -1,0 +1,179 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    // Existing Kids Money Tracker rules. Keep this block when deploying the
+    // shared Firebase project so that app continues to work unchanged.
+    match /families/{familyId} {
+      function isOwner() {
+        return signedIn() && resource.data.ownerUid == request.auth.uid;
+      }
+
+      function isApprovedViewer() {
+        return signedIn()
+          && request.auth.token.email != null
+          && resource.data.memberEmails is list
+          && request.auth.token.email in resource.data.memberEmails;
+      }
+
+      allow get: if isOwner() || isApprovedViewer();
+      allow list, create, delete: if false;
+      allow update: if isOwner()
+        && request.resource.data.ownerUid == resource.data.ownerUid
+        && request.resource.data.ownerEmail == resource.data.ownerEmail
+        && request.resource.data.schemaVersion == 3
+        && request.resource.data.kids is list
+        && request.resource.data.transactions is list
+        && request.resource.data.memberEmails is list
+        && request.resource.data.memberEmails.size() <= 30;
+    }
+
+    function signedInEmail() {
+      return request.auth.token.email;
+    }
+
+    function accessPath() {
+      return /databases/$(database)/documents/permitHourAccess/$(request.auth.token.email);
+    }
+
+    function ownsPermitFamily(familyId) {
+      return signedIn()
+        && get(/databases/$(database)/documents/permitHourFamilies/$(familyId)).data.ownerUid == request.auth.uid;
+    }
+
+    function ownsPermitFamilyAfter(familyId) {
+      return signedIn()
+        && getAfter(/databases/$(database)/documents/permitHourFamilies/$(familyId)).data.ownerUid == request.auth.uid;
+    }
+
+    match /permitHourFamilies/{familyId} {
+      function hasFamilyAccess() {
+        return signedIn()
+          && signedInEmail() != null
+          && exists(accessPath())
+          && get(accessPath()).data.email == signedInEmail()
+          && get(accessPath()).data.familyId == familyId;
+      }
+
+      function isOwner() {
+        return signedIn() && resource.data.ownerUid == request.auth.uid;
+      }
+
+      function isSupervisor() {
+        return hasFamilyAccess() && get(accessPath()).data.role == 'supervisor';
+      }
+
+      function validPermitHoursDocument() {
+        return request.resource.data.schemaVersion == 1
+          && request.resource.data.ownerUid is string
+          && request.resource.data.ownerEmail is string
+          && request.resource.data.supervisorEmails is list
+          && request.resource.data.viewerEmails is list
+          && request.resource.data.supervisorEmails.size() <= 30
+          && request.resource.data.viewerEmails.size() <= 30
+          && request.resource.data.payload is map
+          && request.resource.data.payload.version == 1
+          && request.resource.data.payload.drivers is list
+          && request.resource.data.payload.sessions is list;
+      }
+
+      allow get: if hasFamilyAccess();
+      allow list, delete: if false;
+      allow create: if signedIn()
+        && familyId == request.auth.uid
+        && signedInEmail() != null
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerEmail == signedInEmail()
+        && request.resource.data.supervisorEmails.size() == 0
+        && request.resource.data.viewerEmails.size() == 0
+        && validPermitHoursDocument();
+      allow update: if validPermitHoursDocument()
+        && request.resource.data.ownerUid == resource.data.ownerUid
+        && request.resource.data.ownerEmail == resource.data.ownerEmail
+        && (
+          isOwner()
+          || (
+            isSupervisor()
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['payload', 'updatedAt'])
+          )
+        );
+    }
+
+    match /permitHourAccess/{accessEmail} {
+      function validAccessDocument() {
+        return request.resource.data.email == accessEmail
+          && request.resource.data.familyId is string
+          && request.resource.data.role in ['owner', 'supervisor', 'viewer'];
+      }
+
+      allow get: if signedIn()
+        && signedInEmail() != null
+        && accessEmail == signedInEmail()
+        && (
+          !exists(/databases/$(database)/documents/permitHourAccess/$(accessEmail))
+          || resource.data.email == signedInEmail()
+        );
+      allow list: if false;
+      allow create: if signedIn()
+        && validAccessDocument()
+        && (
+          (
+            accessEmail == signedInEmail()
+            && request.resource.data.role == 'owner'
+            && request.resource.data.familyId == request.auth.uid
+            && ownsPermitFamilyAfter(request.auth.uid)
+          )
+          || (
+            request.resource.data.role in ['supervisor', 'viewer']
+            && ownsPermitFamilyAfter(request.resource.data.familyId)
+          )
+        );
+      allow update: if signedIn()
+        && validAccessDocument()
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.familyId == resource.data.familyId
+        && request.resource.data.role in ['supervisor', 'viewer']
+        && ownsPermitFamilyAfter(resource.data.familyId);
+      allow delete: if signedIn()
+        && resource.data.role != 'owner'
+        && ownsPermitFamily(resource.data.familyId);
+    }
+
+    // Activity Tracker is private per Google account. No collection listing,
+    // cross-account access, or access to either family's data is granted here.
+    match /activityTrackers/{uid} {
+      function ownsTracker() {
+        return signedIn() && request.auth.uid == uid;
+      }
+
+      function validTracker() {
+        return request.resource.data.keys().hasOnly(['schemaVersion', 'ownerUid', 'revision', 'state', 'applied'])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.ownerUid == uid
+          && request.resource.data.revision is int
+          && request.resource.data.revision > 0
+          && request.resource.data.applied is map
+          && request.resource.data.state is map
+          && request.resource.data.state.habits is list
+          && request.resource.data.state.data is map
+          && request.resource.data.state.theme in ['dark', 'light']
+          && request.resource.data.state.weekStart is int
+          && request.resource.data.state.weekStart >= 0
+          && request.resource.data.state.weekStart <= 6;
+      }
+
+      allow get: if ownsTracker();
+      allow list, delete: if false;
+      allow create: if ownsTracker() && validTracker() && request.resource.data.revision == 1;
+      // Transaction preconditions, not rules comparing the latest revision,
+      // arbitrate concurrent writes. A stale rule comparison can turn a normal
+      // retryable conflict into PERMISSION_DENIED before Firestore retries it.
+      allow update: if ownsTracker() && validTracker()
+        && request.resource.data.ownerUid == resource.data.ownerUid;
+    }
+  }
+}

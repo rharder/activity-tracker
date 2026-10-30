@@ -4,4 +4,4 @@ Thumbs.db
 activity-tracker-backup*.json
 .idea/
 .vscode/
-
+.firebase/

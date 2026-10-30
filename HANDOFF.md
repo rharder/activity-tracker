@@ -29,23 +29,27 @@ The nominal 192-pixel PWA icon was corrected from 180×180 to 192×192. The serv
 
 ## Application architecture
 
-This is intentionally a dependency-free static web app with no package manager or build step.
+This is a static web app with no package manager or build step. Optional Google/Firebase sync was added October 30, 2026; the pinned SDK loads only after opting in.
 
 ```text
 site/
   index.html       Entire UI, CSS, and application JavaScript
   manifest.json    PWA metadata
   sw.js            Offline cache and fetch handling
+  sync-state.js    Atomic local state and durable outbox
+  cloud-sync.js    Optional Google sign-in and background transactions
+  firebase-config.js  Public Firebase web configuration
   icon-192.png     PWA icon
   icon-512.png     PWA icon
 ```
 
 Important implementation details:
 
-- User data is browser-local; there is no backend or account system.
-- State is stored in `localStorage` under `habit_tracker_v1`.
-- The local service-worker cache is named `activity-tracker-v6`. During deployment, the Pages workflow stamps both the footer and cache name with `v<run number>.<attempt>-<short commit SHA>`, so each published copy has a visible version and its own offline cache.
-- App HTML is network-first with an offline fallback. The app checks for updates on launch, foregrounding, and reconnecting; the footer also has a manual check. A new version prompts for reload rather than interrupting entry. On the first upgrade from the original v4/v5 or deployed v4.1 caches (which have no update UI), the service worker reloads open app windows once after activating. Saved activity data is untouched; iOS still needs to discover the new service worker before this migration can run.
+- User data is always saved locally first. Optional sync stores a private document at `activityTrackers/{uid}` in the existing `kids-money-tracker-f24be` Firebase project; there is no mandatory account or authentication gate.
+- State is stored under `habit_tracker_v1`, with a backward-compatible `_sync` field holding account binding, pending mutations, and the last server revision. State and outbox persist atomically. Legacy data requires no clearing or manual migration; JSON exports contain only the original app-state format.
+- The local service-worker cache is named `activity-tracker-v8`. During deployment, the Pages workflow stamps both the footer and cache name with `v<run number>.<attempt>-<short commit SHA>`, so each published copy has a visible version and its own offline cache.
+- The complete app shell is cache-first: poor or hanging connections never delay cached startup. Explicit update checks bypass the cache; only a successfully installed new worker replaces the complete shell. Firebase APIs/tokens are never cached by the service worker; only pinned public SDK scripts qualify for a separate optional cache.
+- The app checks for updates on launch, foregrounding, and reconnecting; the footer also has a manual check. A new version prompts for reload rather than interrupting entry. On the first upgrade from the original v4/v5 or deployed v4.1 caches (which have no update UI), the service worker reloads open app windows once after activating. Saved activity data is untouched; iOS still needs to discover the new service worker before this migration can run.
 - Relative asset paths are deliberate so the app works at the GitHub project path `/activity-tracker/`.
 - Editing `site/` and pushing to `main` triggers an automatic deployment.
 
@@ -90,5 +94,6 @@ The first Pages workflow attempt failed because Pages had not yet been enabled. 
 
 - When changing cached application assets, increment `CACHE_NAME` in `site/sw.js` so installed clients receive the new cache.
 - Test through an HTTP server rather than opening `index.html` directly; service workers do not run from `file://` URLs.
-- Browser data does not automatically transfer between devices because the app uses `localStorage`.
+- Browser data transfers across devices only after opting into Google sync with the same account, or via private JSON export/import. Pending sync runs while the app is open; iOS may suspend it in the background.
 - Keep deployable files within `site/`, because the Pages workflow uploads only that directory.
+- `firestore.rules` is shared-project configuration: preserve all currently deployed money/permit/activity rules before any deployment. The older sibling repositories' rules may omit this app. See README for sync conflict semantics, account switching, security, and emulator checks.
