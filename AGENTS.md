@@ -23,6 +23,7 @@
 - Test through an HTTP server rather than `file://`; service workers require an HTTP origin (localhost is sufficient).
 - Preserve compatibility with existing `habit_tracker_v1` data. If the stored-state shape changes, handle older saved data deliberately rather than silently discarding it.
 - Never await authentication, SDK downloads, cloud reads, or cloud writes before rendering local data or accepting edits. Keep navigation cache-first, even on a hanging connection.
+- Counter taps must keep their DOM buttons in place: patch the number/streak instead of rebuilding cards. Defer remote changes during a held press or rapid tap burst, and do not repaint for acknowledgement-only snapshots (including different Firestore map-key order).
 - Persist state and its `_sync` outbox together before starting a cloud write. Remove pending edits only after a server acknowledgement; use transactions and per-actor operation sequences to prevent retries from doubling counts. Exports omit `_sync` metadata.
 - Bind queued edits to their original account. Never upload one account's local tracker to a different account automatically.
 - Firebase rules are SHARED with the money and permit apps. Preserve all currently deployed rules when adding changes. Older sibling rules files may not include this tracker; do not deploy them blindly. Never log CLI credentials (in particular, `firebase login:list --json` includes tokens).

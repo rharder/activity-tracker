@@ -134,7 +134,13 @@ body {
   flex-shrink: 0;
 }
 
-.sync-strip span { min-width: 0; overflow-wrap: anywhere; }
+.sync-strip span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.5;
+}
 
 .sync-copy {
   color: var(--text-dim);
@@ -385,6 +391,7 @@ body {
   transition: all var(--transition);
   user-select: none;
   -webkit-user-select: none;
+  touch-action: manipulation;
   font-family: inherit;
   line-height: 1;
 }
@@ -1478,6 +1485,12 @@ let summaryWeekOffset = 0;
 let summaryMonthOffset = 0;
 let summaryRange = 1;
 let currentTab = 'summary';
+let renderedHabits = '';
+let renderedDay = '';
+let counterIdleTimer = null;
+const pressedCounterPointers = new Set();
+let secondaryViewsDirty = false;
+let pendingStorageRefresh = false;
 
 function defaultState() {
   return { habits: [], data: {}, weekStart: 0, theme: 'dark' };
@@ -1703,18 +1716,78 @@ function setCount(day, habitId, val) {
 }
 
 function increment(habitId) {
+  noteCounterInteraction();
   const day = dateKey(viewDate);
   setCount(day, habitId, getCount(day, habitId) + 1);
-  render();
+  updateHabitCounter(habitId);
+  secondaryViewsDirty = true;
 }
 
 function decrement(habitId) {
+  noteCounterInteraction();
   const day = dateKey(viewDate);
   const c = getCount(day, habitId);
   if (c > 0) {
     setCount(day, habitId, c - 1);
-    render();
+    updateHabitCounter(habitId);
+    secondaryViewsDirty = true;
   }
+}
+
+function noteCounterInteraction() {
+  clearTimeout(counterIdleTimer);
+  counterIdleTimer = setTimeout(() => {
+    counterIdleTimer = null;
+    if (pressedCounterPointers.size) return;
+    refreshStoredState();
+    cloudController?.applyDeferred();
+    // Catch up other counters/summary once, not during each tap in the burst.
+    applyTheme();
+    refreshCounterView();
+    refreshSecondaryViews();
+  }, 500);
+}
+
+function updateHabitCounter(habitId) {
+  const card = document.querySelector(`[data-habit-id="${CSS.escape(habitId)}"]`);
+  if (!card) return;
+  const count = getCount(dateKey(viewDate), habitId);
+  const value = card.querySelector('.counter-value');
+  if (value.textContent !== String(count)) value.textContent = count;
+  value.classList.toggle('zero', count === 0);
+  const streak = getStreak(habitId);
+  const text = streak > 0 ? `${streak}-day streak` : 'No streak';
+  const label = card.querySelector('.habit-streak');
+  if (label.textContent !== text) label.textContent = text;
+}
+
+function refreshCounterView() {
+  if (renderedHabits !== habitLayoutKey(state.habits) || renderedDay !== dateKey(viewDate)) {
+    render();
+  } else state.habits.forEach(habit => updateHabitCounter(habit.id));
+}
+
+function habitLayoutKey(habits) {
+  // Firestore can return map fields in a different order than local JSON.
+  return JSON.stringify(habits.map(habit => [habit.id, habit.name, habit.color, habit.created]));
+}
+
+function sameCounterData(left, right) {
+  const days = Object.keys(left);
+  if (days.length !== Object.keys(right).length) return false;
+  return days.every(day => {
+    if (!right[day]) return false;
+    const ids = Object.keys(left[day]);
+    return ids.length === Object.keys(right[day]).length &&
+      ids.every(id => left[day][id] === right[day][id]);
+  });
+}
+
+function refreshSecondaryViews() {
+  if (!secondaryViewsDirty) return;
+  secondaryViewsDirty = false;
+  if (currentTab === 'summary') renderSummary();
+  if (currentTab === 'history') renderHistory();
 }
 
 // streak: consecutive days with count > 0 ending at viewDate or yesterday
@@ -1751,6 +1824,8 @@ function switchTab(tab) {
 // ═══════════════════════════════════════════════════════════════
 
 function render() {
+  renderedHabits = habitLayoutKey(state.habits);
+  renderedDay = dateKey(viewDate);
   // Date bar
   const dd = document.getElementById('dateDisplay');
   const today = isToday(viewDate);
@@ -2075,6 +2150,7 @@ function exportCSV() {
 }
 
 function printSummary() {
+  refreshSecondaryViews();
   // Set print header text with date range
   const rangeLabels = { 1: 'Weekly Summary', 2: '2-Week Summary', 4: '4-Week Summary', month: 'Monthly Summary', all: 'All-Time Summary' };
   const dateRange = document.getElementById('summaryWeekLabel').textContent;
@@ -2356,21 +2432,55 @@ function renderSyncStatus(update = cloudStatus) {
 
 function canApplyCloudState() {
   return !document.activeElement?.matches('input, select, textarea') &&
-    dragSrcIndex === null && touchDragIndex === null;
+    dragSrcIndex === null && touchDragIndex === null &&
+    counterIdleTimer === null && pressedCounterPointers.size === 0;
 }
 
 function applyCloudState(next) {
+  // Server acknowledgements change outbox metadata, not the visible tracker.
+  // Do not recreate buttons or replay card animations for an unchanged view.
+  const habitsChanged = habitLayoutKey(state.habits) !== habitLayoutKey(next.habits);
+  const countersChanged = !sameCounterData(state.data, next.data);
+  const settingsChanged = state.theme !== next.theme || state.weekStart !== next.weekStart;
   state = next;
+  if (!habitsChanged && !countersChanged && !settingsChanged) return;
   applyTheme();
-  render();
-  if (currentTab === 'summary') renderSummary();
-  if (currentTab === 'history') renderHistory();
+  refreshCounterView();
+  secondaryViewsDirty = true;
+  refreshSecondaryViews();
   if (document.getElementById('settingsPanel').classList.contains('open')) {
     document.getElementById('weekStartSelect').value = state.weekStart;
     document.getElementById('themeSelect').value = state.theme;
-    renderManageHabits();
+    if (habitsChanged) renderManageHabits();
   }
 }
+
+function refreshStoredState() {
+  if (!pendingStorageRefresh || !canApplyCloudState()) return;
+  pendingStorageRefresh = false;
+  syncStore.read();
+  applyCloudState(structuredClone(syncStore.state));
+  if (!syncStore.meta.enabled) disconnectCloudSync();
+  else cloudController?.changed();
+}
+
+document.addEventListener('pointerdown', event => {
+  if (!event.target.closest('.counter-btn')) return;
+  pressedCounterPointers.add(event.pointerId);
+  noteCounterInteraction();
+}, { capture: true, passive: true });
+
+function releaseCounterPointer(event) {
+  if (pressedCounterPointers.delete(event.pointerId)) noteCounterInteraction();
+}
+document.addEventListener('pointerup', releaseCounterPointer, { capture: true, passive: true });
+document.addEventListener('pointercancel', releaseCounterPointer, { capture: true, passive: true });
+window.addEventListener('blur', () => {
+  if (!pressedCounterPointers.size) return;
+  pressedCounterPointers.clear();
+  noteCounterInteraction();
+});
+document.addEventListener('focusout', () => setTimeout(refreshStoredState, 0));
 
 async function prepareCloudSync() {
   if (cloudLoading) return;
@@ -2428,12 +2538,8 @@ document.addEventListener('visibilitychange', () => {
 
 window.addEventListener('storage', event => {
   if (event.key !== STORAGE_KEY) return;
-  if (canApplyCloudState()) {
-    syncStore.read();
-    applyCloudState(structuredClone(syncStore.state));
-    if (!syncStore.meta.enabled) disconnectCloudSync();
-    else cloudController?.changed();
-  }
+  pendingStorageRefresh = true;
+  refreshStoredState();
 });
 
 // ═══════════════════════════════════════════════════════════════

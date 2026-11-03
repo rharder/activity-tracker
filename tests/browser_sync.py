@@ -1,5 +1,6 @@
 """Optional browser checks: python3 tests/browser_sync.py (requires Playwright)."""
 from functools import partial
+from datetime import datetime, timezone
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Thread
@@ -55,6 +56,7 @@ try:
                 }}
             """)
             page = context.new_page()
+            page.clock.set_fixed_time(datetime(2026, 10, 30, 18, tzinfo=timezone.utc))
             errors, requests = [], []
             page.on('pageerror', lambda error: errors.append(str(error)))
             page.on('request', lambda request: requests.append(request.url))

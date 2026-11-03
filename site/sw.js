@@ -1,4 +1,4 @@
-const CACHE_NAME = 'activity-tracker-v8';
+const CACHE_NAME = 'activity-tracker-v9';
 const SDK_CACHE = 'activity-firebase-sdk-v12.18.0';
 const ASSETS = [
   './',

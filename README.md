@@ -52,6 +52,7 @@ Also test affected UI in your browser. When changing cached application assets o
 In **Settings → Optional Google Sync**, choose **Enable Google sync**, then **Continue with Google** once the sign-in button is ready. Choose the same Google account on each device. No family sharing is enabled: each account has its own private tracker, separate from the money and permit apps.
 
 - The app renders `localStorage` immediately and saves edits there synchronously, even if Firebase is slow, unavailable, or not signed in. SDK downloads and sync never gate the UI.
+- Rapid counter taps update the number in place without rebuilding or animating the cards. Each tap is saved immediately; summaries and incoming sync changes catch up after a short pause, without interrupting a held press. Sync acknowledgements do not redraw unchanged controls.
 - On first connection, existing activities are combined by ID. Matching counts use the larger value, not their sum, so importing the same backup on two devices does not double the initial history. Once linked, offline counter changes merge additively through server transactions.
 - A durable, account-bound outbox survives closing, reloading, app updates, poor connections, and rejected uploads. Retries use operation sequence numbers so acknowledgements cannot double-count edits. “Synced” requires a server response, not just a network signal.
 - Returning to the app, reconnecting, or choosing **Sync now** retries. Sync can only run while the app is open; iOS does not guarantee work after closing or suspending a PWA.
@@ -74,6 +75,8 @@ Older copies of the money/permit repositories' rules do not include the new acti
 ### Optional integration checks
 
 `python3 tests/browser_sync.py` uses an already installed Python Playwright environment and its Chromium/WebKit browsers. It tests local-only use, hanging-network startup, delayed/denied uploads, open-form protection, account isolation, backups, and offline retries using a deterministic Firebase double. It never accesses production data.
+
+`python3 tests/rapid_taps.py` exercises real touch events at fixed coordinates with 20 activities and six months of fictional history. It verifies immediate saves, stable buttons during upload acknowledgements, deferred remote reordering, zero clamping, and the absence of page reloads.
 
 `tests/firebase-emulator.test.js` additionally checks real concurrent Firestore transactions and owner/viewer security rules with fictional data. It refuses to run without `FIRESTORE_EMULATOR_HOST`. With Firebase CLI, Java 21, and a separately installed Firebase JS SDK available, run:
 

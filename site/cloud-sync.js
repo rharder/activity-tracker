@@ -214,6 +214,7 @@ export async function createCloudSync(host, sdkLoader = loadFirebase) {
   return {
     changed,
     syncNow,
+    applyDeferred: applyRemote,
     // Called directly by the button handler, preserving the popup user gesture.
     signIn() {
       sdk.signInWithPopup(auth, provider).catch(error => {
